@@ -3,8 +3,8 @@ Description=HW Events
 
 [Service]
 Type=simple
-User=bulls-multi
-Group=bulls-multi
+User=events
+Group=events
 Restart=on-failure
 Environment=MIX_ENV=prod
 Environment=PORT=4820

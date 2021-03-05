@@ -3,7 +3,7 @@
 export MIX_ENV=prod
 export SECRET_KEY_BASE=insecure
 export PORT=4820
-DB_PASS=`pwd/cfg/.db_pass`
+DB_PASS=`pwd`/cfg/.db_pass
 
 if [ ! -e "$DB_PASS" ]; then
     echo "Setup the database first"
@@ -27,7 +27,7 @@ fi
 SECRET_KEY_BASE=$(cat "$KEY")
 export SECRET_KEY_BASE
 
-
+mix ecto.migrate
 
 npm install --prefix ./assets
 npm run deploy --prefix ./assets
