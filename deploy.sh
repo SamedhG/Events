@@ -3,6 +3,7 @@
 export MIX_ENV=prod
 export SECRET_KEY_BASE=insecure
 export PORT=4820
+export DATABASE_URL=ecto://events_db:no_pass/events
 
 mix deps.get --only prod
 mix compile
@@ -17,7 +18,8 @@ fi
 DB_PASS=`pwd/cfg/.db_pass`
 
 if [ ! -e "$DB_PASS" ]; then
-    pwgen 12 1 > "$DB_PASS"
+    echo "Setup the database first"
+    exit 1
 fi
 
 SECRET_KEY_BASE=$(cat "$KEY")
