@@ -1,0 +1,27 @@
+<h1>Show Cal event</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @cal_event.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @cal_event.description %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @cal_event.date %>
+  </li>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @cal_event.time %>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: Routes.cal_event_path(@conn, :edit, @cal_event) %></span>
+<span><%= link "Back", to: Routes.cal_event_path(@conn, :index) %></span>

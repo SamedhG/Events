@@ -1,0 +1,30 @@
+<h1>Listing Events</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>When</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for cal_event <- @events do %>
+    <tr>
+      <td><%= cal_event.title %></td>
+      <td><%= cal_event.description %></td>
+      <td><%= cal_event.date %> <%= cal_event.time %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.cal_event_path(@conn, :show, cal_event) %></span>
+        <span><%= link "Edit", to: Routes.cal_event_path(@conn, :edit, cal_event) %></span>
+        <span><%= link "Delete", to: Routes.cal_event_path(@conn, :delete, cal_event), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Cal event", to: Routes.cal_event_path(@conn, :new) %></span>

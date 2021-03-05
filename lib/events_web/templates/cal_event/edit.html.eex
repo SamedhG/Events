@@ -1,0 +1,5 @@
+<h1>Edit Cal event</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.cal_event_path(@conn, :update, @cal_event)) %>
+
+<span><%= link "Back", to: Routes.cal_event_path(@conn, :index) %></span>
