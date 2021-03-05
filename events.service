@@ -1,0 +1,17 @@
+[Unit]
+Description=HW Events 
+
+[Service]
+Type=simple
+User=bulls-multi
+Group=bulls-multi
+Restart=on-failure
+Environment=MIX_ENV=prod
+Environment=PORT=4820
+Environment=PROD=true
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/events/Events
+ExecStart=/bin/bash /home/events/Events/_build/prod/rel/events/bin/events start
+[Install]
+WantedBy=multi-user.target
