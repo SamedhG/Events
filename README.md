@@ -1,5 +1,15 @@
 # Events
 
+Note: Code from class notes used for reference
+
+## Regarding timezones
+
+All Date/time data for an event is displayed as set by the event cxreator
+assuming that the event is in the timezone they specify.
+
+Other users will see the same time regardless of the timezone they are in
+
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
