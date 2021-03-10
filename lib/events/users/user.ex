@@ -6,7 +6,8 @@ defmodule Events.Users.User do
     field :email, :string
     field :name, :string
   
-    has_many :events, Events.CalEvents.CalEvent
+    has_many :events, Events.CalEvents.CalEvent, foreign_key: :owner
+    has_many :invites, Events.Invites.Invite, foreign_key: :email, references: :email
     timestamps()
   end
 

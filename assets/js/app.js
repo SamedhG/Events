@@ -15,5 +15,7 @@ import "../css/datepicker.css"
 import "phoenix_html"
 import "bootstrap-datepicker"
 import $ from "jquery"
+import "./invites"
 
 $('#datepicker').datepicker({format: "yyyy-mm-dd"});
+

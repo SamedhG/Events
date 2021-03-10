@@ -18,4 +18,9 @@ defmodule EventsWeb.Helpers do
   def current_user_is?(conn, user_id) do
     current_user_id(conn) == user_id
   end
+
+  def current_user_in?(conn, invites) do
+    user = conn.assigns[:current_user]
+    user && Enum.reduce(invites, false, &(&2 || &1.email == user.email))
+  end
 end

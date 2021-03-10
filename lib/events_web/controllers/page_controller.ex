@@ -5,9 +5,9 @@ defmodule EventsWeb.PageController do
   def index(conn, _params) do
     current_user = conn.assigns[:current_user]
     if current_user != nil do
-      events = CalEvents.list_events()
-      |> Enum.filter(&(&1.owner == current_user.id))
-      render(conn, "index.html", events: events)
+      loaded_user = Events.Users.preload_user(current_user)
+      conn = assign(conn, :current_user, loaded_user) 
+      render(conn, "index.html")
     else
       render(conn, "index.html")
     end

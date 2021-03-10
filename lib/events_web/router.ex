@@ -12,6 +12,7 @@ defmodule EventsWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug EventsWeb.Plugs.RequireAuth
   end
 
   scope "/", EventsWeb do
@@ -27,9 +28,11 @@ defmodule EventsWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", EventsWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", EventsWeb do
+    pipe_through :api
+
+    resources "/invites", InviteController, except: [:new, :edit]
+  end
 
   # Enables LiveDashboard only for development
   #

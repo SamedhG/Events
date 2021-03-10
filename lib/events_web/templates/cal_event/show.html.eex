@@ -1,14 +1,51 @@
 <div class="jumbotron">
+  <h2> <%= @cal_event.title %> </h2>
+  <strong>Created by</strong> <%= @cal_event.user.name %> <br />
+  <strong>Description</strong> <%= @cal_event.description %> <br />
+  <strong>When</strong> <%= @cal_event.date %>, <%= @cal_event.time %> <br />
+  <%= if current_user_is?(@conn, @cal_event.owner) do %>
+    <hr class="my-4" />
+    <div class="form-inline">
+      <input type="text" class="form-control mx-1" placeholder="Email" id="invite-email" />
+      <button class="btn btn-primary mx-1" id="invite-btn" data-event-id="<%= @cal_event.id %>">Invite</button>
+      <%= link "Edit", to: Routes.cal_event_path(@conn, :edit, @cal_event), class: "btn btn-primary mx-1" %> 
+      <%= link "Delete", to: Routes.cal_event_path(@conn, :delete, @cal_event), class: "btn btn-primary mx-1" %> </br>
+    </div>
+  <% end %>
 
-<h2> <%= @cal_event.title %> </h2>
-<strong>Description</strong> <%= @cal_event.description %> <br />
-<strong>When</strong> <%= @cal_event.date %>, <%= @cal_event.time %> <br />
-<%= if current_user_is?(@conn, @cal_event.owner) do %>
-  <hr class="my-4">
-  <%= link "Edit", to: Routes.cal_event_path(@conn, :edit, @cal_event), class: "btn btn-primary" %> 
-  <%= link "Delete", to: Routes.cal_event_path(@conn, :delete, @cal_event), class: "btn btn-primary" %> </br>
-<%= end %>
 
-  # TODO: invites stuff
+  <%= if current_user_in?(@conn, @cal_event.invites) do %>
+    <hr class="my-4" />
+    <strong>You Are Invited!</strong><br/>
+    Are you coming? &emsp;
+    <div class="btn-group btn-group-toggle" id="response" data-event-id="<%= @cal_event.id %>">
+      <button class="btn btn-primary" id="invite-no">No</button>
+      <button class="btn btn-primary" id="invite-maybe">Maybe</button>
+      <button class="btn btn-primary" id="invite-yes">Yes</button>
+    </div>
+  <% end %>
+
 </div>
-<div align="right"><%= link "Back", to: Routes.cal_event_path(@conn, :index) %></div>
+
+<%= if current_user_in?(@conn, @cal_event.invites) || current_user_is?(@conn, @cal_event.owner) do %>
+  <!-- If user is owner or invitee -->
+  <table class="table table-striped my-4">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Response</th>
+      </tr>
+    </thead>
+    <tbody id="invite-list">
+      <%= for invite <- @cal_event.invites do %>
+        <tr>
+          <td><%= invite.email %></td>
+          <td><%= invite.response %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+Comments Section Goes here
+<div align="right"><%= link "Back", to: Routes.page_path(@conn, :index) %></div>

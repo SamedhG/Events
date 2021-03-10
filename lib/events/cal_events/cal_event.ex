@@ -9,7 +9,7 @@ defmodule Events.CalEvents.CalEvent do
     field :time, :time
     
     belongs_to :user, Events.Users.User, foreign_key: :owner
-  
+    has_many :invites, Events.Invites.Invite, foreign_key: :event_id 
     timestamps()
   end
 

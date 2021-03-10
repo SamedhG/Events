@@ -3,6 +3,7 @@ defmodule EventsWeb.CalEventController do
 
   alias Events.CalEvents
   alias Events.CalEvents.CalEvent
+  alias Events.Invites.Invite
 
   alias EventsWeb.Plugs
 
@@ -55,8 +56,12 @@ defmodule EventsWeb.CalEventController do
   end
 
   def show(conn, %{"id" => id}) do
-    cal_event = CalEvents.get_cal_event!(id)
-    render(conn, "show.html", cal_event: cal_event)
+    cal_event = id
+                |> CalEvents.get_cal_event!
+                |> CalEvents.preload_cal_event
+    invite = Events.Invites.change_invite(%Invite{event_id: id, response: "maybe"})
+    IO.inspect cal_event
+    render(conn, "show.html", cal_event: cal_event, invite: invite)
   end
 
   def edit(conn, %{"id" => id}) do
