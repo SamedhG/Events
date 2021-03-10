@@ -3,18 +3,20 @@ defmodule Events.CalEvents.CalEvent do
   import Ecto.Changeset
 
   schema "events" do
-    field :description, :string, null: false, default: ""
-    field :title, :string, null: false
-    field :date, :date, null: false
-    field :time, :time, null: false
-
+    field :description, :string
+    field :title, :string
+    field :date, :date
+    field :time, :time
+    
+    belongs_to :user, Events.Users.User, foreign_key: :owner
+  
     timestamps()
   end
 
   @doc false
   def changeset(cal_event, attrs) do
     cal_event
-    |> cast(attrs, [:title, :description, :time, :date])
-    |> validate_required([:title, :description, :time, :date])
+    |> cast(attrs, [:title, :description, :time, :date, :owner])
+    |> validate_required([:title, :description, :time, :date, :owner])
   end
 end

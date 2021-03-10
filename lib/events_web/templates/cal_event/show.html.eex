@@ -1,27 +1,14 @@
-<h1>Show Cal event</h1>
+<div class="jumbotron">
 
-<ul>
+<h2> <%= @cal_event.title %> </h2>
+<strong>Description</strong> <%= @cal_event.description %> <br />
+<strong>When</strong> <%= @cal_event.date %>, <%= @cal_event.time %> <br />
+<%= if current_user_is?(@conn, @cal_event.owner) do %>
+  <hr class="my-4">
+  <%= link "Edit", to: Routes.cal_event_path(@conn, :edit, @cal_event), class: "btn btn-primary" %> 
+  <%= link "Delete", to: Routes.cal_event_path(@conn, :delete, @cal_event), class: "btn btn-primary" %> </br>
+<%= end %>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @cal_event.title %>
-  </li>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @cal_event.description %>
-  </li>
-
-  <li>
-    <strong>Date:</strong>
-    <%= @cal_event.date %>
-  </li>
-
-  <li>
-    <strong>Time:</strong>
-    <%= @cal_event.time %>
-  </li>
-</ul>
-
-<span><%= link "Edit", to: Routes.cal_event_path(@conn, :edit, @cal_event) %></span>
-<span><%= link "Back", to: Routes.cal_event_path(@conn, :index) %></span>
+  # TODO: invites stuff
+</div>
+<div align="right"><%= link "Back", to: Routes.cal_event_path(@conn, :index) %></div>

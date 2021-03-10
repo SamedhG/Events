@@ -5,7 +5,8 @@ defmodule Events.Users.User do
   schema "users" do
     field :email, :string
     field :name, :string
-
+  
+    has_many :events, Events.CalEvents.CalEvent
     timestamps()
   end
 
@@ -15,7 +16,6 @@ defmodule Events.Users.User do
     |> cast(attrs, [:name, :email])
     |> validate_required([:name, :email])
     |> unique_constraint(:email)
-    # TODO: Validate that the email is unique
   end
 
 

@@ -1,5 +1,30 @@
-<div class="row">
-  <div class="col">
-    Hello, World
+<%= if have_current_user?(@conn) do %>
+<%= link "New Cal event", to: Routes.cal_event_path(@conn, :new), class: "btn btn-primary btn-block my-4" %>
+  <div class="jumbotron">
+    <h2>Your Events</h2>
+    <hr class="my-6" />
+
+    <%= for event <- @events do %>
+      <div class="card my-1">
+        <div class="card-header">
+          <div class="row">
+          <div class="col">
+            <%= link event.title, to: Routes.cal_event_path(@conn, :show, event) %>
+          </div><div class="col">
+            <p align="right" class="card-text"><%= event.date %>, <%= event.time %></p>
+          </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= event.description %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
-</div>
+  <div class="jumbotron">
+    <h2>Your Invites</h2>
+    <hr class="my-6" />
+  </div>
+<% else %>
+  <h3> Register or login to start creating and responding to Events </h3>
+<% end %>

@@ -4,6 +4,33 @@ defmodule EventsWeb.CalEventController do
   alias Events.CalEvents
   alias Events.CalEvents.CalEvent
 
+  alias EventsWeb.Plugs
+
+  plug Plugs.RequireUser when action in [:new, :create, :edit, :update, :delete]
+  plug :fetch_event when action in [:show, :photo, :edit, :update, :delete]
+  plug :require_owner when action in [:edit, :update, :delete]
+
+  def fetch_event(conn, _args) do
+    id = conn.params["id"]
+    event = CalEvents.get_cal_event!(id)
+    assign(conn, :event, event)
+  end
+
+  def require_owner(conn, _args) do
+    user = conn.assigns[:current_user]
+    event = conn.assigns[:event]
+
+    if user.id == event.owner do
+      conn
+    else
+      conn
+      |> put_flash(:error, "That isn't yours.")
+      |> redirect(to: Routes.page_path(conn, :index))
+      |> halt()
+    end
+  end
+
+
   def index(conn, _params) do
     events = CalEvents.list_events()
     render(conn, "index.html", events: events)
@@ -15,6 +42,7 @@ defmodule EventsWeb.CalEventController do
   end
 
   def create(conn, %{"cal_event" => cal_event_params}) do
+    cal_event_params = cal_event_params |> Map.put("owner", conn.assigns[:current_user].id)
     case CalEvents.create_cal_event(cal_event_params) do
       {:ok, cal_event} ->
         conn
