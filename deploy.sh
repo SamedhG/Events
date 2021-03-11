@@ -10,7 +10,7 @@ if [ ! -e "$DB_PASS" ]; then
     exit 1
 fi
 
-export DATABASE_URL=ecto://events_db:`cat $DB_PASS`/events
+export DATABASE_URL=ecto://events_db:`cat $DB_PASS`@localhost/events
 
 mix deps.get --only prod
 mix compile
