@@ -15,6 +15,7 @@ alias Events.Repo
 alias Events.Users.User
 alias Events.CalEvents.CalEvent
 alias Events.Invites.Invite
+alias Events.Comments.Comment
 
 
 alice = Repo.insert!(%User{name: "alice", email: "a@b.com"})
@@ -36,7 +37,7 @@ e2 = %CalEvent{
   time: Time.new!(2,3,4),
   owner: alice.id
 }
-e2 = Repo.insert!(e2)
+_e2 = Repo.insert!(e2)
 
 e3 = %CalEvent{
   title: "Dinner",
@@ -79,3 +80,21 @@ i4 = %Invite{
   response: "maybe",
 }
 Repo.insert!(i4)
+
+Repo.insert(%Comment{
+  user_id: alice.id,
+  event_id: e1.id,
+  body: "Dibs on Pikachu"
+})
+
+Repo.insert(%Comment{
+  user_id: bob.id,
+  event_id: e1.id,
+  body: "Will there be pizza?"
+})
+
+Repo.insert(%Comment{
+  user_id: alice.id,
+  event_id: e1.id,
+  body: "@bob yes"
+})
