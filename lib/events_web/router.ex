@@ -25,6 +25,8 @@ defmodule EventsWeb.Router do
     resources "/sessions", SessionController,
       only: [:create, :delete], singleton: true
 
+    resources "/comments", CommentController, only: [:create, :delete]
+
   end
 
   # Other scopes may use custom stacks.

@@ -8,6 +8,7 @@ defmodule Events.Users.User do
   
     has_many :events, Events.CalEvents.CalEvent, foreign_key: :owner
     has_many :invites, Events.Invites.Invite, foreign_key: :email, references: :email
+    has_many :comments, Events.Comments.Comment
     timestamps()
   end
 

@@ -102,5 +102,5 @@ defmodule Events.CalEvents do
     CalEvent.changeset(cal_event, attrs)
   end
 
-  def preload_cal_event(%CalEvent{} = event), do: Repo.preload(event, [:user, :invites])
+  def preload_cal_event(%CalEvent{} = event), do: Repo.preload(event, [:user, :invites, comments: [:user]])
 end

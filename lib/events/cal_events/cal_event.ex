@@ -10,6 +10,7 @@ defmodule Events.CalEvents.CalEvent do
     
     belongs_to :user, Events.Users.User, foreign_key: :owner
     has_many :invites, Events.Invites.Invite, foreign_key: :event_id 
+    has_many :comments, Events.Comments.Comment, foreign_key: :event_id
     timestamps()
   end
 
