@@ -92,6 +92,6 @@ defmodule EventsWeb.CalEventController do
 
     conn
     |> put_flash(:info, "Cal event deleted successfully.")
-    |> redirect(to: Routes.cal_event_path(conn, :index))
+    |> redirect(to: Routes.page_path(conn, :index))
   end
 end

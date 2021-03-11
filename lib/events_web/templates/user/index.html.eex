@@ -1,12 +1,10 @@
-<h1>Listing Users</h1>
+<h1>User Directory</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th>Email</th>
-
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -14,12 +12,6 @@
     <tr>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.user_path(@conn, :show, user) %></span>
-        <span><%= link "Edit", to: Routes.user_path(@conn, :edit, user) %></span>
-        <span><%= link "Delete", to: Routes.user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
     </tr>
 <% end %>
   </tbody>

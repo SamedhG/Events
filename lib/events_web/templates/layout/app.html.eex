@@ -15,26 +15,24 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="/">EventPlanner</a>
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/users">Users</a>
-            </li>
-          </ul>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"> <a class="nav-link" href="/users">Directory</a></li>
+      </ul>
       <%= if @conn.assigns[:current_user] do %>
-          <div class="text-light my-2">
-            <span class="mx-3"> Welcome back <%= @current_user.name %></span> |
-              <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete,
-                  class: "btn btn-outline-success mx-3"  %>
-          </div>
-        <% else %>
-          <div class="form-inline my-2">
-            <%= form_for @conn, Routes.session_path(@conn, :create), fn f -> %>
-              <%= text_input f, :email, class: "form-control mx-1", placeholder: "Email" %>
-              <%= submit "Login", class: "btn btn-outline-success mx-1" %>
-            <% end %>
-            <%= link "Register", to: Routes.user_path(@conn, :new), class: "btn btn-outline-success mx-1" %>
-          </div>
-        <% end %>
+        <div class="text-light my-2">
+          <span class="mx-3"> Welcome back <%= @current_user.name %></span> |
+          <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete,
+class: "btn btn-outline-success mx-3"  %>
+        </div>
+      <% else %>
+        <div class="form-inline my-2">
+          <%= form_for @conn, Routes.session_path(@conn, :create), fn f -> %>
+            <%= text_input f, :email, class: "form-control mx-1", placeholder: "Email" %>
+            <%= submit "Login", class: "btn btn-outline-success mx-1" %>
+          <% end %>
+          <%= link "Register", to: Routes.user_path(@conn, :new), class: "btn btn-outline-success mx-1" %>
+        </div>
+      <% end %>
     </nav>
     <div role="main" class="container">
       <%= if get_flash(@conn, :info) do %>
@@ -54,7 +52,7 @@
           <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
             <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %>
           <% end %>
-        | &#169; samedh.site |
+          | &#169; samedh.site |
         </span>
       </div>
     </footer>
