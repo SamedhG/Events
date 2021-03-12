@@ -6,6 +6,7 @@
   <strong>When</strong> <%= @cal_event.date %>, <%= @cal_event.time %> <br />
   <%= if current_user_is?(@conn, @cal_event.owner) do %>
     <hr class="my-4" />
+    <p>Invite URL: <%= Routes.url(@conn) %><%= @conn.request_path %></p>
     <div class="form-inline">
       <input type="text" class="form-control mx-1" placeholder="Email" id="invite-email" />
       <button class="btn btn-primary mx-1" id="invite-btn" data-event-id="<%= @cal_event.id %>">Invite</button>
