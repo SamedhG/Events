@@ -43,6 +43,7 @@ defmodule EventsWeb.InviteController do
              |> Enum.find(nil, &(&1.email == curr_email))
     invite_params = %{response: response}
     with {:ok, %Invite{} = invite} <- Invites.update_invite(invite, invite_params) do
+      invite = Invites.load_event(invite)
       render(conn, "show.json", invite: invite)
     end
   end

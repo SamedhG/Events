@@ -20,9 +20,9 @@
     <strong>You Are Invited!</strong><br/>
     Are you coming? &emsp;
     <div class="btn-group btn-group-toggle" id="response" data-event-id="<%= @cal_event.id %>">
-      <button class="btn btn-primary" id="invite-no">No</button>
-      <button class="btn btn-primary" id="invite-maybe">Maybe</button>
       <button class="btn btn-primary" id="invite-yes">Yes</button>
+      <button class="btn btn-primary" id="invite-maybe">Maybe</button>
+      <button class="btn btn-primary" id="invite-no">No</button>
     </div>
   <% end %>
 
@@ -31,6 +31,11 @@
 <%= if current_user_in?(@conn, @cal_event.invites) || current_user_is?(@conn, @cal_event.owner) do %>
 
   <!-- If user is owner or invitee -->
+  <h5 align="center"> 
+    Yes: <span id="display-yes"><%= @cal_event.num_yes %></span> | 
+    Maybe: <span id="display-maybe"><%= @cal_event.num_maybe %></span> | 
+    No: <span id="display-no"><%= @cal_event.num_no %> </span>
+  </h5>
 
   <table class="table table-striped">
     <thead>

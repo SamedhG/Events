@@ -24,6 +24,9 @@ function responded(data, status, _xhr) {
         if (e.firstElementChild.innerText == data.data.email)
             e.lastElementChild.innerText = data.data.response
     })
+    $("#display-yes").text(data.data.yes)
+    $("#display-no").text(data.data.no)
+    $("#display-maybe").text(data.data.maybe)
 }
 
 function respond(event_id, response) {

@@ -13,6 +13,10 @@ defmodule EventsWeb.InviteView do
   def render("invite.json", %{invite: invite}) do
     %{id: invite.id,
       email: invite.email,
-      response: invite.response}
+      response: invite.response,
+      yes: invite.event.num_yes,
+      no: invite.event.num_no,
+      maybe: invite.event.num_maybe,
+    }
   end
 end

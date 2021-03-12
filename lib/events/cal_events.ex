@@ -102,5 +102,15 @@ defmodule Events.CalEvents do
     CalEvent.changeset(cal_event, attrs)
   end
 
-  def preload_cal_event(%CalEvent{} = event), do: Repo.preload(event, [:user, :invites, comments: [:user]])
+  def preload_cal_event(%CalEvent{} = event) do
+    event = Repo.preload(event, [:user, :invites, comments: [:user]])
+    {yes, no, maybe} = Enum.reduce(event.invites, {0, 0, 0}, fn invite, {y, n, m} ->
+      case invite.response do
+        "yes" -> { y + 1, n, m }
+        "no" -> { y, n + 1, m }
+        "maybe" -> { y, n, m + 1 }
+      end
+    end)
+    %{ event | num_yes: yes, num_no: no, num_maybe: maybe }
+  end
 end

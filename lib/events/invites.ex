@@ -101,4 +101,10 @@ defmodule Events.Invites do
   def change_invite(%Invite{} = invite, attrs \\ %{}) do
     Invite.changeset(invite, attrs)
   end
+
+  def load_event(%Invite{} = invite) do
+    invite = Repo.preload(invite, :event)
+    event = Events.CalEvents.preload_cal_event(invite.event)
+    %{ invite | event: event }
+  end
 end
