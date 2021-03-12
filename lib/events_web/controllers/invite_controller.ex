@@ -15,8 +15,6 @@ defmodule EventsWeb.InviteController do
   def create(conn, %{"event_id" => event_id, "email" => email}) do
     owner = CalEvents.get_cal_event!(event_id).owner
     curr_id = conn.assigns[:current_user].id
-    IO.inspect owner
-    IO.inspect curr_id
     # Check user id in token
     invite_params = %{
       event_id: event_id, 

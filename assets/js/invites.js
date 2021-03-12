@@ -1,7 +1,6 @@
 import $ from "jquery"
 
 function invited(data, status, _xhr) {
-    console.log("updated", status, data);
     $("#invite-list").append(`<tr><td>${data.data.email}</td><td>${data.data.response}</td></tr>`)
 }
 
@@ -21,7 +20,6 @@ function invite(event_id, email) {
 }
 
 function responded(data, status, _xhr) {
-    console.log("updated", status, data);
     $("#invite-list").children().each((_i, e) => {
         if (e.firstElementChild.innerText == data.data.email)
             e.lastElementChild.innerText = data.data.response
