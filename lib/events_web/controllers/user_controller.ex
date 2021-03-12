@@ -40,8 +40,7 @@ defmodule EventsWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: Routes.page_path(conn, :index))
-
+        |> EventsWeb.SessionController.create(%{"email" => user.email, "redirect_to" => user_params["redirect_to"]})
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

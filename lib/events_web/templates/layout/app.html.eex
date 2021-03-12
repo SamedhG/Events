@@ -28,10 +28,11 @@
       <% else %>
         <div class="form-inline my-2">
           <%= form_for @conn, Routes.session_path(@conn, :create), fn f -> %>
+            <%= hidden_input f, :redirect_to, value: @conn.request_path %>
             <%= text_input f, :email, class: "form-control mx-1", placeholder: "Email" %>
             <%= submit "Login", class: "btn btn-outline-success mx-1" %>
           <% end %>
-          <%= link "Register", to: Routes.user_path(@conn, :new), class: "btn btn-outline-success mx-1" %>
+          <%= link "Register", to: Routes.user_path(@conn, :new, redirect_to: @conn.request_path), class: "btn btn-outline-success mx-1" %>
         </div>
       <% end %>
     </nav>

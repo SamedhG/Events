@@ -1,5 +1,5 @@
 <h1>New User</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
+<%= render "form.html", Map.put(Map.put(assigns, :action, Routes.user_path(@conn, :create)), :redirect_to, @conn.query_params["redirect_to"] || "/") %>
 
 <span><%= link "Back", to: Routes.user_path(@conn, :index) %></span>

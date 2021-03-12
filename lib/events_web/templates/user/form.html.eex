@@ -16,6 +16,8 @@
   <%= label f, :photo %>
   <%= file_input f, :photo, class: "form-control" %>
   <%= error_tag f, :photo %>
+
+  <%= hidden_input f, :redirect_to, value: @redirect_to %>
   </div>
   <div>
     <%= submit "Save", class: "btn btn-primary"  %>

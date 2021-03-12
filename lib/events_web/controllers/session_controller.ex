@@ -1,13 +1,13 @@
 defmodule EventsWeb.SessionController do
   use EventsWeb, :controller
 
-  def create(conn, %{"email" => email}) do
+  def create(conn, %{"email" => email, "redirect_to" => redirect_to}) do
     user = Events.Users.get_user_by_email(email)
     if user do
       conn
       |> put_session(:user_id, user.id)
       |> put_flash(:info, "Hey #{user.name}!")
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: redirect_to)
     else
       conn
       |> put_flash(:error, "Not a user, please register first.")
