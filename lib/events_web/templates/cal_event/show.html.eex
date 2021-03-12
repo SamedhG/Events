@@ -1,6 +1,7 @@
 <div class="jumbotron">
   <h2> <%= @cal_event.title %> </h2>
-  <strong>Created by</strong> <%= @cal_event.user.name %> <br />
+  <img src="<%= Routes.user_path(@conn, :photo, @cal_event.owner) %>" alt="profile" style="max-height: 50px" class="rounded">
+  <%= @cal_event.user.name %> <br />
   <strong>Description</strong> <%= @cal_event.description %> <br />
   <strong>When</strong> <%= @cal_event.date %>, <%= @cal_event.time %> <br />
   <%= if current_user_is?(@conn, @cal_event.owner) do %>
@@ -64,7 +65,10 @@
     <ul class="list-group list-group-flush">
     <%= for comment <- @cal_event.comments do %>
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      <span><strong><%= comment.user.name %>:</strong> <%= comment.body %></span>
+      <span>
+        <img src="<%= Routes.user_path(@conn, :photo, comment.user_id) %>" alt="profile" style="max-width: 50px; max-height: 50px" class="rounded">
+        <strong><%= comment.user.name %>:</strong> <%= comment.body %>
+      </span>
       <%= if current_user_is?(@conn, @cal_event.owner) || current_user_is?(@conn, comment.user_id) do %>
       <%= link "X", to: Routes.comment_path(@conn, :delete, comment), class: "badge badge-secondary badge-pill", method: :delete, data: [confirm: "Are you sure?"] %>
       <% end %>

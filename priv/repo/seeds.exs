@@ -16,10 +16,22 @@ alias Events.Users.User
 alias Events.CalEvents.CalEvent
 alias Events.Invites.Invite
 alias Events.Comments.Comment
+alias Events.Photos
 
+defmodule Inject do
+  def photo(name, type) do
+    photos = Application.app_dir(:events, "priv/photo")
+    path = Path.join(photos, name)
+    {:ok, photo}  = Photos.save_photo(path, "type")
+    photo
+  end
+end
 
-alice = Repo.insert!(%User{name: "alice", email: "a@b.com"})
-bob = Repo.insert!(%User{name: "bob", email: "c@d.com"})
+p1 = Inject.photo("alice.png", "image/png")
+p2 = Inject.photo("bob.jpg", "image/jpg")
+
+alice = Repo.insert!(%User{name: "alice", email: "a@b.com", photo_id: p1.id})
+bob = Repo.insert!(%User{name: "bob", email: "c@d.com", photo_id: p2.id})
 
 e1 = %CalEvent{
   title: "Smash Bros",

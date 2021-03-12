@@ -3,6 +3,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Email</th>
     </tr>
@@ -10,11 +11,11 @@
   <tbody>
 <%= for user <- @users do %>
     <tr>
+
+      <td><img src="<%= Routes.user_path(@conn, :photo, user) %>" alt="profile" style="max-height: 50px" class="rounded"></td>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New User", to: Routes.user_path(@conn, :new) %></span>

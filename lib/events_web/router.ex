@@ -19,13 +19,14 @@ defmodule EventsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/users", UserController, only: [:create, :new, :index]
+    resources "/users", UserController, only: [:create, :new, :index, :update, :edit]
     resources "/events", CalEventController
 
     resources "/sessions", SessionController,
       only: [:create, :delete], singleton: true
 
     resources "/comments", CommentController, only: [:create, :delete]
+    get "/users/photo/:id", UserController, :photo
 
   end
 

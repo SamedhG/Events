@@ -20,9 +20,10 @@
       </ul>
       <%= if @conn.assigns[:current_user] do %>
         <div class="text-light my-2">
-          <span class="mx-3"> Welcome back <%= @current_user.name %></span> |
-          <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete,
-class: "btn btn-outline-success mx-3"  %>
+          <img src="<%= Routes.user_path(@conn, :photo, @current_user) %>" alt="profile" style="max-height: 50px" class="rounded">
+          <span class="mx-1"><%= @current_user.name %></span>
+          <%= link "Edit", to: Routes.user_path(@conn, :edit, @current_user), class: "btn btn-outline-success mx-1" %>
+          <%= link "Logout", to: Routes.session_path(@conn, :delete), method: :delete, class: "btn btn-outline-success mx-1" %>
         </div>
       <% else %>
         <div class="form-inline my-2">
